@@ -4,10 +4,12 @@ import thunkMiddleware from 'redux-thunk';
 
 //Local
 import uiReducer from './reducers/UIReducer'
+import loginReducer from './reducers/LoginReducer'
 
 const rootReducer = combineReducers({
   ui: uiReducer,
-  form: formReducer
+  login: loginReducer,
+  form: formReducer,
 });
 
 const store = createStore(rootReducer,applyMiddleware(thunkMiddleware));

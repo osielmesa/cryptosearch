@@ -1,15 +1,16 @@
-import React, {PureComponent} from 'react'
+import React, {Component} from 'react'
 import { Button } from 'react-native-material-ui';
 //Local
 import theme from '../../theme'
 
-class ButtonSubmit extends PureComponent {
+class ButtonSubmit extends Component {
   render() {
     const {
       text,
       disabled=false,
       submitting=false,
-      onPress=()=>{}
+      onPress=()=>{},
+      icon = null
     } = this.props
 
     const buttonCustomStyle={
@@ -28,6 +29,7 @@ class ButtonSubmit extends PureComponent {
         style={buttonCustomStyle}
         onPress={onPress}
         disabled={disabled || submitting}
+        icon={icon}
       />
     )
   }

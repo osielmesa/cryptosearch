@@ -7,22 +7,19 @@ import {MaterialIndicator} from 'react-native-indicators';
 import theme from '../../common/theme'
 import {isEmailValid, isPasswordValid} from "../../common/utils";
 import {TextField,ButtonSubmit} from "../../common/components";
-import {login} from "../../common/redux/actions/Actions";
+import {login} from "../../common/redux/actions/LoginActions";
 
 class SignIn extends Component {
-
   state={
-    loading:false,
     errorFromApi:''
   }
 
   login = (values) => {
-    console.log(values)
     this.props.dispatch(login({username:values.email.toLowerCase(),password:values.password}))
   }
 
   render() {
-    const {invalid, error,submitting, handleSubmit,} = this.props
+    const {invalid, error,submitting,handleSubmit, loadingLogin, showLoginError, errorMessage} = this.props
     return (
       <View style={styles.container}>
         <View style={styles.contentView}>
@@ -52,16 +49,16 @@ class SignIn extends Component {
         </View>
 
         <View style={styles.contentView}>
-          {this.state.errorFromApi !== '' && <Text style={styles.errorFromApiText}>{this.state.errorFromApi}</Text>}
+          {showLoginError &&
+            <Text style={styles.errorFromApiText}>{errorMessage}</Text>
+          }
           <ButtonSubmit
-            text={'SIGN IN'}
+            text={loadingLogin ? '' : 'SIGN IN'}
             disabled={invalid && !error}
             submitting={submitting}
             onPress={handleSubmit(this.login)}
+            icon={loadingLogin ? <MaterialIndicator color={theme.colors.disabledColor} size={20} /> : null}
           />
-          {this.state.loading && <View style={styles.loadingView}>
-            <View style={styles.indicatorView}><MaterialIndicator color={theme.colors.primary} size={20} /></View>
-          </View>}
         </View>
       </View>
     )
@@ -84,7 +81,7 @@ const styles = StyleSheet.create({
   },
   loadingView:{
     position:'absolute',
-    top:0,
+    top:80,
     bottom:0,
     left:0,
     right:0,
@@ -100,4 +97,10 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect()(reduxForm({form:'SignIn'})(SignIn))
+const mapStateToProps = state => ({
+  loadingLogin: state.login.loadingLogin,
+  showLoginError: state.login.showLoginError,
+  errorMessage: state.login.errorMessage
+});
+
+export default connect(mapStateToProps)(reduxForm({form:'SignIn'})(SignIn))
