@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
 import {StyleSheet, View} from 'react-native'
+import {connect} from 'react-redux'
 
 //Local
 import LoggedIn from '../loggedIn'
 import LoggedOut from '../loggedOut'
+import {getSecurityData} from "../common/redux/actions/LoginActions";
 
 
 class Init extends Component {
@@ -13,13 +15,13 @@ class Init extends Component {
   }
 
   componentDidMount() {
-    //make request for login
+    this.props.dispatch(getSecurityData())
   }
 
   render() {
     return (
       <View style={styles.container}>
-        {this.state.user ? <LoggedOut/> : <LoggedIn/>}
+        {this.props.user ? <LoggedIn/> : <LoggedOut/>}
       </View>
     )
   }
@@ -31,4 +33,8 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Init
+const mapStateToProps = state => ({
+  user: state.login.user,
+});
+
+export default connect(mapStateToProps)(Init)

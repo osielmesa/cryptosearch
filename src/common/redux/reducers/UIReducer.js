@@ -2,6 +2,7 @@ import {HIDE_LOADING,SHOW_LOADING} from "../actions/ActionTypes";
 
 const initialState = {
   loading: false,
+  loadingText:''
 };
 
  const uiReducer = (state = initialState, action) => {
@@ -17,7 +18,7 @@ const initialState = {
       return {
         ...state,
         loading: true,
-        loadingText:action.loadingText
+        loadingText:action.payload
       };
 
     default:

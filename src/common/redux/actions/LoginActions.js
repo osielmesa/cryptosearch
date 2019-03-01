@@ -1,0 +1,156 @@
+import * as Keychain from 'react-native-keychain';
+
+import {loginEndpoint, grantTypePassword, clientId, contentTypeLogin, userInfoEndpoint} from '../../api'
+import {
+  HIDE_LOADING,
+  HIDE_LOADING_LOGIN,
+  SHOW_LOADING,
+  SHOW_LOADING_LOGIN,
+  SHOW_LOGIN_ERROR_MESSAGE,
+  HIDE_LOGIN_ERROR_MESSAGE,
+  UPDATE_USER_INFO
+} from "./ActionTypes";
+
+export const hideLoading = () => ({
+  type: HIDE_LOADING,
+})
+
+export const showLoading = (loadingText) => ({
+  type: SHOW_LOADING,
+  payload:loadingText
+})
+
+export const showLoadingLogin = () => ({
+  type: SHOW_LOADING_LOGIN
+})
+
+export const hideLoadingLogin = () => ({
+  type: HIDE_LOADING_LOGIN
+})
+
+export const showLoginErrorMessage = (text) => ({
+  type: SHOW_LOGIN_ERROR_MESSAGE,
+  payload: text
+})
+
+export const hideLoginErrorMessage = () => ({
+  type: HIDE_LOGIN_ERROR_MESSAGE
+})
+
+export const updateUserInfo = (user) => ({
+  type: UPDATE_USER_INFO,
+  payload: user
+})
+
+export const login = ({ username, password }) => {
+  return dispatch => {
+    dispatch(showLoadingLogin())
+    const details = {
+      'username': username,
+      'password': password,
+      'grant_type': grantTypePassword,
+      'client_id': clientId
+    };
+    let formBody = [];
+    for (const property in details) {
+      const encodedKey = encodeURIComponent(property);
+      const encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
+    formBody = formBody.join("&");
+    const config = {
+      method: 'POST',
+      headers: {
+        'Content-Type': contentTypeLogin,
+      },
+      body: formBody
+    }
+    fetch(loginEndpoint, config)
+      .then(res => {
+        res.json().then(jsonResponse => {
+          if(jsonResponse.code && jsonResponse.code !== 200 && jsonResponse.message){
+            dispatch(showLoginErrorMessage(jsonResponse.message))
+            dispatch(hideLoadingLogin())
+            return;
+          }
+          dispatch(getUserInfo(jsonResponse, true))
+        })
+      }).catch(error => {
+        dispatch(showLoginErrorMessage('Error: Please check the internet connection!'))
+        dispatch(hideLoadingLogin())
+      })
+  }
+}
+export const getUserInfo = (authorization, saveData) => {
+  let bearer = null
+  if(authorization.token_type && authorization.accessToken){
+    bearer = authorization.token_type + ' '+authorization.accessToken
+  }
+  return dispatch => {
+    if(!bearer){
+      dispatch(hideLoadingLogin())
+      dispatch(showLoginErrorMessage('Error: An error has occurred!'))
+      return;
+    }
+    const url = userInfoEndpoint;
+    const config = {
+      method: 'GET',
+      headers: {
+        'Authorization': bearer
+      }
+    }
+    fetch(url,config).then(res => {
+      res.json().then(jsonResponse => {
+        console.log(jsonResponse)
+        if(jsonResponse.code && jsonResponse.code !== 200 && jsonResponse.message){
+          dispatch(showLoginErrorMessage(jsonResponse.message))
+          dispatch(hideLoadingLogin())
+          dispatch(hideLoading())
+        }else {
+          dispatch(updateUserInfo(jsonResponse))
+          dispatch(hideLoadingLogin())
+          dispatch(hideLoginErrorMessage())
+          dispatch(hideLoading())
+          if(saveData){
+            dispatch(saveSecurityData(authorization.token_type, authorization.accessToken))
+          }
+        }
+      })
+    }).catch(error => {
+      dispatch(showLoginErrorMessage('Error: Please check the internet connection!'))
+      dispatch(hideLoadingLogin())
+      dispatch(hideLoading())
+    })
+  }
+}
+
+const saveSecurityData = (token_type,accessToken) => {
+  return dispatch => {
+     Keychain.resetGenericPassword().then(reseted => {
+       Keychain.setGenericPassword(token_type, accessToken).then(saved => {
+
+       })
+     }).catch(error => {
+       console.log('Keychain couldn\'t be accessed!', error);
+     })
+  }
+}
+
+export const getSecurityData = () => {
+  return dispatch => {
+    dispatch(showLoading('Loading...Please wait!'))
+    try {
+      Keychain.getGenericPassword().then(credentials => {
+        if (credentials.username && credentials.password) {
+          const token_type = credentials.username
+          const accessToken = credentials.password
+          dispatch(getUserInfo({token_type,accessToken},false))
+        }
+      })
+    } catch (error) {
+      dispatch(hideLoading())
+      console.log('Keychain couldn\'t be accessed!', error);
+    }
+  }
+}
+

@@ -19,7 +19,7 @@ class LoadingModal extends Component {
         visible={loading}>
         <View style={styles.overlay}>
           <View style={{height:80}}>
-            <DotIndicator color={theme.colors.loadingIndicatorColor} size={10} count={3} />
+            <DotIndicator color={theme.colors.primary} size={10} count={3} />
           </View>
           <Text style={styles.loadingText}>{loadingText}</Text>
         </View>
@@ -31,12 +31,12 @@ class LoadingModal extends Component {
 const styles = StyleSheet.create({
   overlay: {
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.85)',
+    backgroundColor: 'rgba(0, 0, 0, 0.70)',
     flex: 1,
     justifyContent: 'center',
   },
   loadingText:{
-    color:theme.colors.loadingTextColor
+    color:theme.colors.disabledColor
   }
 })
 

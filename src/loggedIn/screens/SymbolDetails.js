@@ -8,7 +8,7 @@ import theme from "../../common/theme";
 import {NewsListItem} from "../../common/components";
 
 const data = [-10, -15, 40, 19, 32, 15, 52, 55, 20, 60, 78, 42, 56];
-const config = {
+const LineChartConfig = {
   line: {
     strokeWidth: 1,
     strokeColor: "#216D99"
@@ -68,7 +68,7 @@ class SymbolDetails extends Component {
         <View style={styles.elementsView}>
           <Text style={styles.priceText}>Details</Text>
           <View style={styles.viewChart}>
-            <LineChart style={{flex:1, backgroundColor: 'transparent'}} config={config} data={data} />
+            <LineChart style={{flex:1, backgroundColor: 'transparent'}} config={LineChartConfig} data={data} />
           </View>
           <Text style={styles.aboutTitle}>ABOUT</Text>
           <Text style={styles.aboutText}>Esta es una descripcions grande la moneda en cuestion espero que se aprecie su contenido y el de las demas moneds</Text>
