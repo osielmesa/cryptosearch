@@ -8,7 +8,7 @@ import {
   SHOW_LOADING_LOGIN,
   SHOW_LOGIN_ERROR_MESSAGE,
   HIDE_LOGIN_ERROR_MESSAGE,
-  UPDATE_USER_INFO
+  UPDATE_USER_INFO, LOGOUT
 } from "./ActionTypes";
 
 export const hideLoading = () => ({
@@ -37,9 +37,9 @@ export const hideLoginErrorMessage = () => ({
   type: HIDE_LOGIN_ERROR_MESSAGE
 })
 
-export const updateUserInfo = (user) => ({
+export const updateUserInfo = (user,token) => ({
   type: UPDATE_USER_INFO,
-  payload: user
+  payload: {user,token}
 })
 
 export const login = ({ username, password }) => {
@@ -73,7 +73,7 @@ export const login = ({ username, password }) => {
             dispatch(hideLoadingLogin())
             return;
           }
-          dispatch(getUserInfo(jsonResponse, true))
+          dispatch(getUserInfo(jsonResponse, true, true))
         })
       }).catch(error => {
         dispatch(showLoginErrorMessage('Error: Please check the internet connection!'))
@@ -81,7 +81,7 @@ export const login = ({ username, password }) => {
       })
   }
 }
-export const getUserInfo = (authorization, saveData) => {
+export const getUserInfo = (authorization, saveDataEnabled, showloginErrorEnabled) => {
   let bearer = null
   if(authorization.token_type && authorization.accessToken){
     bearer = authorization.token_type + ' '+authorization.accessToken
@@ -101,23 +101,26 @@ export const getUserInfo = (authorization, saveData) => {
     }
     fetch(url,config).then(res => {
       res.json().then(jsonResponse => {
-        console.log(jsonResponse)
         if(jsonResponse.code && jsonResponse.code !== 200 && jsonResponse.message){
-          dispatch(showLoginErrorMessage(jsonResponse.message))
+          if(showloginErrorEnabled){
+            dispatch(showLoginErrorMessage(jsonResponse.message))
+          }
           dispatch(hideLoadingLogin())
           dispatch(hideLoading())
         }else {
-          dispatch(updateUserInfo(jsonResponse))
+          dispatch(updateUserInfo(jsonResponse, bearer))
           dispatch(hideLoadingLogin())
           dispatch(hideLoginErrorMessage())
           dispatch(hideLoading())
-          if(saveData){
+          if(saveDataEnabled){
             dispatch(saveSecurityData(authorization.token_type, authorization.accessToken))
           }
         }
       })
     }).catch(error => {
-      dispatch(showLoginErrorMessage('Error: Please check the internet connection!'))
+      if(showloginErrorEnabled){
+        dispatch(showLoginErrorMessage('Error: Please check the internet connection!'))
+      }
       dispatch(hideLoadingLogin())
       dispatch(hideLoading())
     })
@@ -128,11 +131,21 @@ const saveSecurityData = (token_type,accessToken) => {
   return dispatch => {
      Keychain.resetGenericPassword().then(reseted => {
        Keychain.setGenericPassword(token_type, accessToken).then(saved => {
-
+         console.log('Security data has been saved.')
        })
      }).catch(error => {
        console.log('Keychain couldn\'t be accessed!', error);
      })
+  }
+}
+
+export const deleteSecurityData = () => {
+  return dispatch => {
+    Keychain.resetGenericPassword().then(reseted => {
+      console.log('Security data has been removed.')
+    }).catch(error => {
+      console.log('Keychain couldn\'t be accessed!', error);
+    })
   }
 }
 
@@ -144,13 +157,26 @@ export const getSecurityData = () => {
         if (credentials.username && credentials.password) {
           const token_type = credentials.username
           const accessToken = credentials.password
-          dispatch(getUserInfo({token_type,accessToken},false))
+          dispatch(getUserInfo({token_type,accessToken},false, false))
+        }else{
+          dispatch(hideLoading())
+          console.log('There is not security data saved!');
         }
+      }).catch(error => {
+        dispatch(hideLoading())
+        console.log('Keychain couldn\'t be accessed!', error);
       })
     } catch (error) {
       dispatch(hideLoading())
       console.log('Keychain couldn\'t be accessed!', error);
     }
+  }
+}
+
+export const logout = () => {
+  return dispatch => {
+    dispatch(deleteSecurityData())
+    dispatch({type:LOGOUT})
   }
 }
 

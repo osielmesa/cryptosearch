@@ -3,14 +3,16 @@ import {
   HIDE_LOADING_LOGIN,
   SHOW_LOGIN_ERROR_MESSAGE,
   HIDE_LOGIN_ERROR_MESSAGE,
-  UPDATE_USER_INFO
+  UPDATE_USER_INFO,
+  LOGOUT
 } from "../actions/ActionTypes";
 
 const initialState = {
   loadingLogin: false,
   showLoginError:false,
   errorMessage:'',
-  user:null
+  user:null,
+  token:null
 }
 
 const loginReducer = (state = initialState, action) => {
@@ -39,7 +41,14 @@ const loginReducer = (state = initialState, action) => {
     case UPDATE_USER_INFO:
       return {
         ...state,
-        user: action.payload
+        user: action.payload.user,
+        token: action.payload.token
+      }
+    case LOGOUT:
+      return {
+        ...state,
+        user: null,
+        token: null
       }
     default:
       return state;
