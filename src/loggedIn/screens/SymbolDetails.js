@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Text, StyleSheet, ScrollView, FlatList, TouchableOpacity} from 'react-native'
+import {View, Text, StyleSheet, ScrollView, FlatList, TouchableOpacity, Linking} from 'react-native'
 import {connect} from 'react-redux'
 import * as Animatable from "react-native-animatable";
 import LineChart from "react-native-responsive-linechart";
@@ -45,6 +45,13 @@ class SymbolDetails extends Component {
     return formattedData
   }
 
+  newsItemPressed = (item) => {
+    console.log(item)
+    if(item.news_url && item.news_url !== ''){
+      Linking.openURL(item.news_url)
+    }
+  }
+
   _renderItem = ({item,index}) =>{
     if(this.animationDelayFactor === undefined){
       this.animationDelayFactor = 0
@@ -60,6 +67,7 @@ class SymbolDetails extends Component {
         <NewsListItem
           description={item.title}
           date={date.toLocaleString()}
+          onPress={() => {this.newsItemPressed(item)}}
         />
       </Animatable.View>
     )
@@ -107,12 +115,12 @@ const chartConfig = {
   line: {
     visible: true,
     strokeWidth: 2,
-    strokeColor: "#341f97"
+    strokeColor: theme.colors.strokeColorChart
   },
   area: {
-    gradientFrom: "#2e86de",
+    gradientFrom: theme.colors.gradientChartTop,
     gradientFromOpacity: 1,
-    gradientTo: "#87D3FF",
+    gradientTo: theme.colors.gradientChartBottom,
     gradientToOpacity: 1
   },
   yAxis: {

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Text, StyleSheet} from 'react-native'
+import {View, Text, StyleSheet, AsyncStorage} from 'react-native'
 import {connect} from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import {MaterialIndicator} from 'react-native-indicators';
@@ -16,6 +16,22 @@ class SignIn extends Component {
 
   login = (values) => {
     this.props.dispatch(login({username:values.email.toLowerCase(),password:values.password}))
+  }
+
+  componentWillMount(): void {
+    this.navigateToWelcomeIfFirstTime()
+  }
+
+  navigateToWelcomeIfFirstTime = async () => {
+
+    try {
+      const notFirstTime = await AsyncStorage.getItem('NOT_FIRST_TIME')
+      if (!notFirstTime) {
+        this.props.navigation.navigate('Welcome')
+      }
+    } catch (error) {
+      console.log('Error retrieving data:' + error)
+    }
   }
 
   render() {

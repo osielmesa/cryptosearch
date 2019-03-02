@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Modal, StyleSheet, View, Text } from 'react-native'
 import { connect } from 'react-redux'
-import { DotIndicator } from 'react-native-indicators';
+import { MaterialIndicator } from 'react-native-indicators';
 //Local
 import theme from '../theme'
 
@@ -19,7 +19,7 @@ class LoadingModal extends Component {
         visible={loading}>
         <View style={styles.overlay}>
           <View style={{height:80}}>
-            <DotIndicator color={theme.colors.primary} size={10} count={3} />
+            <MaterialIndicator color={theme.colors.messageColor} size={40}/>
           </View>
           <Text style={styles.loadingText}>{loadingText}</Text>
         </View>

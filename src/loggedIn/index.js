@@ -1,5 +1,6 @@
 import React from "react";
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from "react-navigation";
+import Logout from '../common/components/Logout'
 
 //Local
 import Search from './screens/Search'
@@ -40,6 +41,7 @@ TabNavigator.navigationOptions = ({ navigation }) => {
     headerStyle: headerStyle,
     headerTintColor: theme.colors.headerTintColor,
     headerTitleStyle: headerTitleStyle,
+    headerRight: (<Logout/>),
   };
 };
 
