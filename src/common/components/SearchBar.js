@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React,{Component} from 'react';
 import {
   TextInput,
   StyleSheet,
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class SearchBar extends React.Component {
+class SearchBar extends Component {
 
   static defaultProps = {
     onSearchChange: () => {},
@@ -50,6 +50,7 @@ class SearchBar extends React.Component {
     this.state = {
       isOnFocus: false,
       wait: true,
+      text:''
     };
     this._onFocus = this._onFocus.bind(this);
     this._onBlur = this._onBlur.bind(this);
@@ -57,6 +58,7 @@ class SearchBar extends React.Component {
   }
 
   _onClose() {
+    this.setState({text:''})
     this._textInput.setNativeProps({text: ''});
     this.props.onSearchChange('');
     if (this.props.onClose) {
@@ -168,7 +170,8 @@ class SearchBar extends React.Component {
             returnKeyType={returnKeyType}
             onFocus={this._onFocus}
             onBlur={this._onBlur}
-            onChangeText={onSearchChange}
+            onChangeText={(text) => {onSearchChange(text);this.setState({text})}}
+            value={this.state.text}
             onEndEditing={this.props.onEndEditing}
             onSubmitEditing={this.props.onSubmitEditing}
             placeholder={placeholder}
@@ -185,7 +188,7 @@ class SearchBar extends React.Component {
             }
             {...this.props.inputProps}
           />
-          {this.state.isOnFocus ?
+          {this.state.text !== '' ?
             <TouchableOpacity onPress={this._onClose}>
               { iconCloseComponent ?
                 iconCloseComponent

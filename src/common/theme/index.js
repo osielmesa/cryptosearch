@@ -6,6 +6,7 @@ const theme = {
     secondaryTextColor:'#999999',
     favColor:'#D5447A',
     disabledColor:'#E0E0E0',
+    messageColor:'#43A047',
     errorColor:'#F44336',
     headerTintColor:'#FFFFFF'
   }

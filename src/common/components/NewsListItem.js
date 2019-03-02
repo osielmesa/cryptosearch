@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     alignSelf:'center',
     width: '95%',
     marginTop:10,
-    justifyContent:'center'
+    justifyContent:'center',
   },
   divider: {
     height: 1,

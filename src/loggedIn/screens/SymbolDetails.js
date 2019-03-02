@@ -1,46 +1,48 @@
 import React, {Component} from 'react'
-import {View, Text, StyleSheet, ScrollView, FlatList} from 'react-native'
+import {View, Text, StyleSheet, ScrollView, FlatList, TouchableOpacity} from 'react-native'
+import {connect} from 'react-redux'
 import * as Animatable from "react-native-animatable";
 import LineChart from "react-native-responsive-linechart";
 
 import {headerStyle, headerTitleStyle} from "../../common/utils";
 import theme from "../../common/theme";
 import {NewsListItem} from "../../common/components";
-
-const data = [-10, -15, 40, 19, 32, 15, 52, 55, 20, 60, 78, 42, 56];
-const LineChartConfig = {
-  line: {
-    strokeWidth: 1,
-    strokeColor: "#216D99"
-  },
-  area: {
-    gradientFrom: "#2e86de",
-    gradientFromOpacity: 1,
-    gradientTo: "#87D3FF",
-    gradientToOpacity: 1
-  },
-  yAxis: {
-    labelColor: "#c8d6e5"
-  },
-  grid: {
-    strokeColor: "#c8d6e5",
-    stepSize: 30
-  },
-  insetY: 10,
-  insetX: 10,
-  interpolation: "spline",
-  backgroundColor: "#fff"
-};
+import {getApplicationNews, getSymbolChart} from "../../common/redux/actions/SymbolViewActions";
 
 class SymbolDetails extends Component {
-  limitPerPage = 30
+  limitAnimationDelayCount = 15
   static navigationOptions = ({ navigation }) => {
     return {
-      headerTitle:navigation.getParam('title', 'Details'),
+      headerTitle:navigation.getParam('symbol', {displayName:'Details'}).displayName,
       headerStyle: headerStyle,
       headerTintColor: theme.colors.headerTintColor,
       headerTitleStyle: headerTitleStyle,
     }
+  }
+
+  componentDidMount(): void {
+    const symbol = this.props.navigation.getParam('symbol', {})
+    const symbolId = symbol.id
+    const userId = this.props.user.id
+    const token = this.props.token
+    this.props.dispatch(getSymbolChart({userId,symbolId,token}))
+    this.props.dispatch(getApplicationNews(token,0))
+  }
+
+  showMorePressed = () => {
+    const {token,offset} = this.props
+    this.props.dispatch(getApplicationNews(token, offset))
+  }
+
+  produceDataForChart = (chartData) => {
+    const formattedData = []
+    for(let i=0; i<chartData.length;i++){
+      if(chartData[i].ask_high){
+        const value = chartData[i].ask_high
+        formattedData.push(value)
+      }
+    }
+    return formattedData
   }
 
   _renderItem = ({item,index}) =>{
@@ -49,41 +51,79 @@ class SymbolDetails extends Component {
     }else{
       this.animationDelayFactor += 1
     }
-    if(this.animationDelayFactor >= this.limitPerPage){
+    if(this.animationDelayFactor >= this.limitAnimationDelayCount){
       this.animationDelayFactor = 0
     }
+    const date = new Date(item.published)
     return (
-      <Animatable.View animation={'bounceIn'} delay={this.animationDelayFactor*100} key={index}>
+      <Animatable.View animation={'bounceIn'} delay={this.animationDelayFactor*50} key={index}>
         <NewsListItem
-          description={item.description}
-          date={item.date}
+          description={item.title}
+          date={date.toLocaleString()}
         />
       </Animatable.View>
     )
   }
 
   render() {
+    const symbol = this.props.navigation.getParam('symbol', {})
+    const {chartData, news} = this.props
+    const formattedData = this.produceDataForChart(chartData)
     return (
-      <ScrollView>
+      <ScrollView contentContainerStyle={{paddingVertical:40}}>
         <View style={styles.elementsView}>
-          <Text style={styles.priceText}>Details</Text>
+          <Text style={styles.priceText}>{symbol.price.ask ? '$'+symbol.price.ask : ''}</Text>
+
+          {formattedData && formattedData.length > 0 &&
           <View style={styles.viewChart}>
-            <LineChart style={{flex:1, backgroundColor: 'transparent'}} config={LineChartConfig} data={data} />
+            <LineChart style={{flex:1, backgroundColor: 'transparent'}} config={chartConfig} data={formattedData} />
           </View>
+          }
+
           <Text style={styles.aboutTitle}>ABOUT</Text>
-          <Text style={styles.aboutText}>Esta es una descripcions grande la moneda en cuestion espero que se aprecie su contenido y el de las demas moneds</Text>
-          <Text style={styles.newsTitle}>NEWS</Text>
+          {symbol.baseInstrument.description &&
+          <Text style={styles.aboutText}>{symbol.baseInstrument.description}</Text>
+          }
+
+          {news && news.length > 0 &&<Text style={styles.newsTitle}>NEWS</Text>}
         </View>
+        {news && news.length > 0 &&
         <FlatList
-          keyExtractor={(item, index) => index+''}
-          data={[{id:'1',description: 'etherum',date:'128.30$'}, {id:'2',description: 'bitcoin',date:'1000.30$'}]}
+          keyExtractor={(item, index) => index + ''}
+          data={news}
           renderItem={item => this._renderItem(item)}
           style={styles.newsList}
         />
-        <Text style={styles.showMoreText}>SHOW MORE</Text>
+        }
+        <TouchableOpacity onPress={() => this.showMorePressed()}>
+          <Text style={styles.showMoreText}>SHOW MORE</Text>
+        </TouchableOpacity>
       </ScrollView>
     )
   }
+}
+
+const chartConfig = {
+  line: {
+    visible: true,
+    strokeWidth: 2,
+    strokeColor: "#341f97"
+  },
+  area: {
+    gradientFrom: "#2e86de",
+    gradientFromOpacity: 1,
+    gradientTo: "#87D3FF",
+    gradientToOpacity: 1
+  },
+  yAxis: {
+    visible: true,
+    labelFormatter: v => v.toFixed(4)
+  },
+  xAxis: {
+    visible: false
+  },
+  insetY: 5,
+  insetX: 5
 }
 
 const styles = StyleSheet.create({
@@ -114,7 +154,7 @@ const styles = StyleSheet.create({
   newsTitle:{
     color:theme.colors.primary,
     fontWeight: 'bold',
-    marginTop:15
+    marginTop:20
   },
   showMoreText:{
     alignSelf:'center',
@@ -127,4 +167,12 @@ const styles = StyleSheet.create({
   }
 })
 
-export default SymbolDetails
+const mapStateToProps = state => ({
+  user: state.login.user,
+  token: state.login.token,
+  chartData: state.symbolView.chartData,
+  news: state.symbolView.news,
+  offset: state.symbolView.offset
+});
+
+export default connect(mapStateToProps)(SymbolDetails)

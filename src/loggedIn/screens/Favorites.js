@@ -1,18 +1,33 @@
 import React, {Component} from 'react'
 import {ScrollView, FlatList, StyleSheet, View} from 'react-native'
+import {connect} from 'react-redux'
 import * as Animatable from 'react-native-animatable';
 
 import theme from "../../common/theme";
-import {SymbolListItem} from "../../common/components";
+import { SymbolListItem} from "../../common/components";
+import {cleanNews} from "../../common/redux/actions/SymbolViewActions";
+import {setSymbolWatchList} from "../../common/redux/actions/SearchActions";
 
-class Favorites extends Component {
-  limitPerPage = 30
+class Search extends Component {
+
+  limitAnimationDelayCount = 15
 
   onItemPressed = (item) => {
-    this.props.navigation.navigate('SymbolDetails',{itemId:item.id,title:item.name})
+    this.props.dispatch(cleanNews())
+    this.props.navigation.navigate('SymbolDetails',{symbol:item})
   }
+
   onItemIconPressed = (item) => {
-    console.log(item.name)
+    const {accounts, token, user} = this.props
+    if(accounts.length > 0){
+      this.props.dispatch(setSymbolWatchList({
+        accountId:accounts[0].id,token,
+        symbolId:item.id,
+        following:false,
+        symbolName:item.displayName,
+        userId:user.id
+      }))
+    }
   }
 
   _renderItem = ({item,index}) =>{
@@ -21,14 +36,14 @@ class Favorites extends Component {
     }else{
       this.animationDelayFactor += 1
     }
-    if(this.animationDelayFactor >= this.limitPerPage){
+    if(this.animationDelayFactor >= this.limitAnimationDelayCount){
       this.animationDelayFactor = 0
     }
     return (
-      <Animatable.View animation={'bounceIn'} delay={this.animationDelayFactor*100} key={index}>
+      <Animatable.View animation={'bounceIn'} delay={this.animationDelayFactor*50} key={index}>
         <SymbolListItem
-          title={item.name}
-          secondaryText={item.balance}
+          title={item.displayName}
+          secondaryText={'$'+item.price.ask}
           iconName={'favorite'}
           iconColor={theme.colors.favColor}
           onPress={() => this.onItemPressed(item)}
@@ -41,12 +56,13 @@ class Favorites extends Component {
   render() {
     return (
       <ScrollView>
+        {this.props.watchList.length > 0 &&
         <FlatList
           keyExtractor={(item, index) => index+''}
-          data={[{id:'1',name: 'etherum',balance:'128.30$',fav:false}, {id:'2',name: 'bitcoin',balance:'1000.30$',fav:true}]}
+          data={this.props.watchList}
           renderItem={item => this._renderItem(item)}
           style={styles.symbolList}
-        />
+        />}
       </ScrollView>
     )
   }
@@ -54,8 +70,15 @@ class Favorites extends Component {
 
 const styles = StyleSheet.create({
   symbolList:{
-    marginTop:15
+    marginTop:20
   }
 })
 
-export default Favorites
+const mapStateToProps = state => ({
+  user: state.login.user,
+  token: state.login.token,
+  watchList: state.login.watchList,
+  accounts: state.login.accounts,
+});
+
+export default connect(mapStateToProps)(Search)
