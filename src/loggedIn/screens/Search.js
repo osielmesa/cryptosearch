@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import * as Animatable from 'react-native-animatable';
 
 import theme from "../../common/theme";
-import {SearchBar, SymbolListItem} from "../../common/components";
+import {SearchBar, showErrorToast, SymbolListItem} from "../../common/components";
 import {getSymbolSearch, setSymbolWatchList} from "../../common/redux/actions/SearchActions";
 import {cleanNews} from "../../common/redux/actions/SymbolViewActions";
 
@@ -41,6 +41,8 @@ class Search extends Component {
         symbolName:item.displayName,
         userId: user.id
       }))
+    }else{
+      showErrorToast('You do not have account to save followed crypto!')
     }
   }
 
