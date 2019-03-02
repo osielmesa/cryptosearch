@@ -42,20 +42,20 @@ export const getApplicationNewsEndpoint = (offset) => {
   return appNewsPart1 + applicationId + appNewsPart2 + limit
 }
 
-//Favorites
-export const getfavoriteDataEndpoint = (accountId) => {
+//Watchlist Data
+export const getWatchlistDataEndpoint = (accountId) => {
   const favoritePart1 = baseUrl + '/accounts/'
   const favoritePart2 = '/watchlist'
   return favoritePart1 + accountId + favoritePart2
 }
-
+//User accounts
 export const getUserAccountsEndpoint = (userId) => {
   const userAccountsPart1 = baseUrl + '/users/'
   const userAccountsPart2 = '/accounts'
   return userAccountsPart1 + userId + userAccountsPart2
 }
-
-export const watchListEndpoint = (accountId,symbolId) => {
+//Set symbol watchlist
+export const setSymbolWatchListEndpoint = (accountId, symbolId) => {
   const watchListPart1 = baseUrl + '/accounts/'
   const watchListPart2 = '/watchlist/'
   return watchListPart1 + accountId + watchListPart2 + symbolId

@@ -5,9 +5,8 @@ import * as Animatable from 'react-native-animatable';
 
 import theme from "../../common/theme";
 import {SearchBar, SymbolListItem} from "../../common/components";
-import {getSymbolSearch} from "../../common/redux/actions/SearchActions";
+import {getSymbolSearch, setSymbolWatchList} from "../../common/redux/actions/SearchActions";
 import {cleanNews} from "../../common/redux/actions/SymbolViewActions";
-import {setFavorite} from "../../common/redux/actions/FavoritesActions";
 
 class Search extends Component {
   state = {
@@ -25,8 +24,18 @@ class Search extends Component {
   }
 
   onItemIconPressed = (item) => {
-    const {user,token,} = this.props
-    this.props.dispatch(setFavorite(user.id,token,item.id,true))
+    const {accounts, token, watchList, user} = this.props
+    if(accounts.length > 0){
+      const following = !this.isFavorite(item.id,watchList)
+      this.props.dispatch(setSymbolWatchList({
+        accountId:accounts[0].id,
+        token,
+        symbolId:item.id,
+        following:following,
+        symbolName:item.displayName,
+        userId: user.id
+      }))
+    }
   }
 
   onSearchTextChanged = (text) => {
@@ -46,7 +55,17 @@ class Search extends Component {
     }
   }
 
+  isFavorite = (symbolId,watchList) => {
+    for(let i = 0; i < watchList.length;i++){
+      if(watchList[i].id === symbolId){
+        return true
+      }
+    }
+    return false
+  }
+
   _renderItem = ({item,index}) =>{
+    const {watchList} = this.props
     if(this.animationDelayFactor === undefined){
       this.animationDelayFactor = 0
     }else{
@@ -60,8 +79,8 @@ class Search extends Component {
         <SymbolListItem
           title={item.displayName}
           secondaryText={'$'+item.price.ask}
-          iconName={item.fav ? 'favorite' : 'favorite-border'}
-          iconColor={item.fav ? theme.colors.favColor : theme.colors.secondaryTextColor}
+          iconName={this.isFavorite(item.id,watchList) ? 'favorite' : 'favorite-border'}
+          iconColor={this.isFavorite(item.id,watchList) ? theme.colors.favColor : theme.colors.secondaryTextColor}
           onPress={() => this.onItemPressed(item)}
           onIconPress={() => this.onItemIconPressed(item)}
         />
@@ -108,6 +127,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   user: state.login.user,
   token: state.login.token,
+  accounts: state.login.accounts,
+  watchList: state.login.watchList,
   symbols: state.search.symbols
 });
 

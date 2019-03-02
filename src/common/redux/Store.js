@@ -7,7 +7,6 @@ import uiReducer from './reducers/UIReducer'
 import loginReducer from './reducers/LoginReducer'
 import searchReducer from './reducers/SearchReducer'
 import symbolViewReducer from './reducers/SymbolViewReducer'
-import favoritesReducer from './reducers/FavoritesReducer'
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -15,7 +14,6 @@ const rootReducer = combineReducers({
   login: loginReducer,
   search:searchReducer,
   symbolView:symbolViewReducer,
-  favorites:favoritesReducer
 });
 
 const store = createStore(rootReducer,applyMiddleware(thunkMiddleware));

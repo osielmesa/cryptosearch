@@ -7,7 +7,7 @@ const showToast = (message, position = Toast.positions.CENTER) => {
     duration: Toast.durations.LONG,
     position: position,
     textColor:'white',
-    backgroundColor:theme.colors.primary,
+    backgroundColor:theme.colors.messageColor,
     opacity:1,
     animation: true,
     hideOnPress: true,

@@ -5,18 +5,12 @@ import * as Animatable from 'react-native-animatable';
 
 import theme from "../../common/theme";
 import { SymbolListItem} from "../../common/components";
-import {getSymbolSearch} from "../../common/redux/actions/SearchActions";
 import {cleanNews} from "../../common/redux/actions/SymbolViewActions";
-import {getUserAccounts} from "../../common/redux/actions/FavoritesActions";
+import {setSymbolWatchList} from "../../common/redux/actions/SearchActions";
 
 class Search extends Component {
 
   limitAnimationDelayCount = 15
-
-  componentDidMount(): void {
-    const {user,token} = this.props
-    this.props.dispatch(getUserAccounts({userId:user.id,token}))
-  }
 
   onItemPressed = (item) => {
     this.props.dispatch(cleanNews())
@@ -24,7 +18,16 @@ class Search extends Component {
   }
 
   onItemIconPressed = (item) => {
-    console.log(item)
+    const {accounts, token, user} = this.props
+    if(accounts.length > 0){
+      this.props.dispatch(setSymbolWatchList({
+        accountId:accounts[0].id,token,
+        symbolId:item.id,
+        following:false,
+        symbolName:item.displayName,
+        userId:user.id
+      }))
+    }
   }
 
   _renderItem = ({item,index}) =>{
@@ -53,10 +56,10 @@ class Search extends Component {
   render() {
     return (
       <ScrollView>
-        {this.props.symbols.length > 0 &&
+        {this.props.watchList.length > 0 &&
         <FlatList
           keyExtractor={(item, index) => index+''}
-          data={this.props.symbols}
+          data={this.props.watchList}
           renderItem={item => this._renderItem(item)}
           style={styles.symbolList}
         />}
@@ -74,7 +77,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   user: state.login.user,
   token: state.login.token,
-  symbols: state.favorites.symbols
+  watchList: state.login.watchList,
+  accounts: state.login.accounts,
 });
 
 export default connect(mapStateToProps)(Search)

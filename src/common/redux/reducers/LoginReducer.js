@@ -4,7 +4,9 @@ import {
   SHOW_LOGIN_ERROR_MESSAGE,
   HIDE_LOGIN_ERROR_MESSAGE,
   UPDATE_USER_INFO,
-  LOGOUT
+  LOGOUT,
+  RETRIEVE_ACCOUNTS,
+  RETRIEVE_WATCH_LIST
 } from "../actions/ActionTypes";
 
 const initialState = {
@@ -12,7 +14,9 @@ const initialState = {
   showLoginError:false,
   errorMessage:'',
   user:null,
-  token:null
+  token:null,
+  accounts:[],
+  watchList:[]
 }
 
 const loginReducer = (state = initialState, action) => {
@@ -49,6 +53,16 @@ const loginReducer = (state = initialState, action) => {
         ...state,
         user: null,
         token: null
+      }
+    case RETRIEVE_ACCOUNTS:
+      return {
+        ...state,
+        accounts: action.payload
+      }
+    case RETRIEVE_WATCH_LIST:
+      return {
+        ...state,
+        watchList: action.payload
       }
     default:
       return state;

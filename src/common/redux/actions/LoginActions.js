@@ -1,6 +1,14 @@
 import * as Keychain from 'react-native-keychain';
 
-import {loginEndpoint, grantTypePassword, clientId, contentTypeLogin, userInfoEndpoint} from '../../api'
+import {
+  loginEndpoint,
+  grantTypePassword,
+  clientId,
+  contentTypeLogin,
+  userInfoEndpoint,
+  getUserAccountsEndpoint,
+  getWatchlistDataEndpoint
+} from '../../api'
 import {
   HIDE_LOADING,
   HIDE_LOADING_LOGIN,
@@ -8,7 +16,9 @@ import {
   SHOW_LOADING_LOGIN,
   SHOW_LOGIN_ERROR_MESSAGE,
   HIDE_LOGIN_ERROR_MESSAGE,
-  UPDATE_USER_INFO, LOGOUT
+  UPDATE_USER_INFO, LOGOUT,
+  RETRIEVE_ACCOUNTS,
+  RETRIEVE_WATCH_LIST
 } from "./ActionTypes";
 
 export const hideLoading = () => ({
@@ -74,6 +84,8 @@ export const login = ({ username, password }) => {
             return;
           }
           dispatch(getUserInfo(jsonResponse, true, true))
+        }).catch(error => {
+          console.log('ERROR: ',error)
         })
       }).catch(error => {
         dispatch(showLoginErrorMessage('Error: Please check the internet connection!'))
@@ -108,6 +120,7 @@ export const getUserInfo = (authorization, saveDataEnabled, showloginErrorEnable
           dispatch(hideLoadingLogin())
           dispatch(hideLoading())
         }else {
+          dispatch(getUserAccounts({userId:jsonResponse.id,token:bearer}))
           dispatch(updateUserInfo(jsonResponse, bearer))
           dispatch(hideLoadingLogin())
           dispatch(hideLoginErrorMessage())
@@ -116,6 +129,8 @@ export const getUserInfo = (authorization, saveDataEnabled, showloginErrorEnable
             dispatch(saveSecurityData(authorization.token_type, authorization.accessToken))
           }
         }
+      }).catch(error => {
+        console.log('ERROR: ',error)
       })
     }).catch(error => {
       if(showloginErrorEnabled){
@@ -123,6 +138,59 @@ export const getUserInfo = (authorization, saveDataEnabled, showloginErrorEnable
       }
       dispatch(hideLoadingLogin())
       dispatch(hideLoading())
+    })
+  }
+}
+
+export const getUserAccounts = ({userId,token}) => {
+  return dispatch => {
+    const url = getUserAccountsEndpoint(userId)
+    const config = {
+      method: 'GET',
+      headers: {
+        'Authorization': token
+      }
+    }
+    fetch(url,config).then(res => {
+      res.json().then(jsonResponse => {
+        if(jsonResponse.code && jsonResponse.code !== 200){
+          console.log('ERROR: ',jsonResponse)
+        }else {
+          if(jsonResponse.length > 0){
+            dispatch({type:RETRIEVE_ACCOUNTS,payload:jsonResponse})
+            dispatch(getWatchList({accountId:jsonResponse[0].id,token}))
+          }
+        }
+      }).catch(error => {
+        console.log('ERROR: ',error)
+      })
+    }).catch(error => {
+      console.log('ERROR: ',error)
+    })
+  }
+}
+
+export const getWatchList = ({accountId,token}) => {
+  return dispatch => {
+    const url = getWatchlistDataEndpoint(accountId);
+    const config = {
+      method: 'GET',
+      headers: {
+        'Authorization': token
+      }
+    }
+    fetch(url,config).then(res => {
+      res.json().then(jsonResponse => {
+        if(jsonResponse.code && jsonResponse.code !== 200){
+          console.log('ERROR: ',jsonResponse)
+        }else {
+          dispatch({type:RETRIEVE_WATCH_LIST,payload:jsonResponse})
+        }
+      }).catch(error => {
+        console.log('ERROR: ',error)
+      })
+    }).catch(error => {
+      console.log('ERROR: ',error)
     })
   }
 }
