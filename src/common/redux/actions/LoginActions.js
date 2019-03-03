@@ -111,8 +111,8 @@ export const getUserInfo = (authorization, saveDataEnabled, showloginErrorEnable
           dispatch(hideLoadingLogin())
           dispatch(hideLoading())
         }else {
-          dispatch(getUserAccounts({userId:jsonResponse.id,token:bearer}))
           dispatch(updateUserInfo(jsonResponse, bearer,authorization.accessToken))
+          dispatch(getUserAccounts({userId:jsonResponse.id,token:bearer}))
           dispatch(hideLoadingLogin())
           dispatch(hideLoginErrorMessage())
           dispatch(hideLoading())
@@ -234,6 +234,8 @@ export const getSecurityData = () => {
 
 export const logout = () => {
   return dispatch => {
+    dispatch({type:RETRIEVE_ACCOUNTS,payload:[]})
+    dispatch({type:RETRIEVE_WATCH_LIST,payload:[]})
     dispatch(deleteSecurityData())
     dispatch({type:LOGOUT})
   }
