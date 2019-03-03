@@ -42,7 +42,7 @@ class CustomTab extends PureComponent {
     const {navigation} = this.props;
     const {routes} = navigation.state;
     return (
-      <View style={styles.tabbar}>
+      <View style={styles.tabBar}>
         {routes && routes.map((route, index) => {
           return (
             <TouchableWithoutFeedback
@@ -73,16 +73,15 @@ class CustomTab extends PureComponent {
 }
 
 const styles = StyleSheet.create({
-  tabbar: {
+  tabBar: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: 'white',
-    shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.7,
+    shadowOpacity: 0.5,
     shadowRadius: 5,
-    elevation: 1,
+    elevation: 30,
   },
   activeTintColor: {
     backgroundColor: 'rgb(255,255,255)',
