@@ -13,7 +13,7 @@
             buildForArchiving = "YES"
             buildForAnalyzing = "YES">
             <BuildableReference
-               BuildableIdentifier = "primary"
+               BuildableIdentifier = "primaryColor"
                BlueprintIdentifier = "83CBBA2D1A601D0E00E9B192"
                BuildableName = "libReact.a"
                BlueprintName = "React"
@@ -27,7 +27,7 @@
             buildForArchiving = "YES"
             buildForAnalyzing = "YES">
             <BuildableReference
-               BuildableIdentifier = "primary"
+               BuildableIdentifier = "primaryColor"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
                BuildableName = "cryptosearch.app"
                BlueprintName = "cryptosearch"
@@ -41,7 +41,7 @@
             buildForArchiving = "NO"
             buildForAnalyzing = "YES">
             <BuildableReference
-               BuildableIdentifier = "primary"
+               BuildableIdentifier = "primaryColor"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
                BuildableName = "cryptosearchTests.xctest"
                BlueprintName = "cryptosearchTests"
@@ -59,7 +59,7 @@
          <TestableReference
             skipped = "NO">
             <BuildableReference
-               BuildableIdentifier = "primary"
+               BuildableIdentifier = "primaryColor"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
                BuildableName = "cryptosearchTests.xctest"
                BlueprintName = "cryptosearchTests"
@@ -69,7 +69,7 @@
       </Testables>
       <MacroExpansion>
          <BuildableReference
-            BuildableIdentifier = "primary"
+            BuildableIdentifier = "primaryColor"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "cryptosearch.app"
             BlueprintName = "cryptosearch"
@@ -92,7 +92,7 @@
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
-            BuildableIdentifier = "primary"
+            BuildableIdentifier = "primaryColor"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "cryptosearch.app"
             BlueprintName = "cryptosearch"
@@ -111,7 +111,7 @@
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
-            BuildableIdentifier = "primary"
+            BuildableIdentifier = "primaryColor"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "cryptosearch.app"
             BlueprintName = "cryptosearch"

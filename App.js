@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet,View, YellowBox} from 'react-native';
+import { StyleSheet,View, YellowBox, StatusBar} from 'react-native';
 import { Provider } from 'react-redux';
 
 YellowBox.ignoreWarnings([
@@ -19,6 +19,7 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <View style={styles.container}>
+          <StatusBar backgroundColor="#31766C" barStyle="light-content" />
           <LoadingModal/>
           <Init/>
         </View>

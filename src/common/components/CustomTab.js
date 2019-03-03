@@ -53,8 +53,8 @@ class CustomTab extends PureComponent {
               <View style={{minHeight:50, justifyContent:'center'}}>
                 {navigation.state.index===index &&
                 <Animatable.View animation="rubberBand" duration={1000} style={styles.tab}>
-                  <Icon size={24} name={this.getIconName(route.routeName)} style={{ color: theme.colors.primary }} />
-                  <Text style={[styles.tabText,{color: theme.colors.primary}]}>{this.getTitle(route.routeName)}</Text>
+                  <Icon size={24} name={this.getIconName(route.routeName)} style={{ color: theme.colors.primaryColor }} />
+                  <Text style={[styles.tabText,{color: theme.colors.primaryColor}]}>{this.getTitle(route.routeName)}</Text>
                 </Animatable.View>
                 }
                 {navigation.state.index!==index &&

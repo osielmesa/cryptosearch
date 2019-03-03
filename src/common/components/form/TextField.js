@@ -54,7 +54,7 @@ class TextField extends PureComponent {
         label={label}
         containerStyle={containerStyle ? containerStyle : styles.containerStyle}
         secureTextEntry={isPasswordType}
-        tintColor={theme.colors.primary}
+        tintColor={theme.colors.primaryColor}
         onBlur={val=> onBlur(val)}
         onChangeText={ val => {onChange(val);this.isEmpty(val)}}
         error={!!error && touched ? (this.state.empty ? errorEmptyText : errorInvalidText) : ''}

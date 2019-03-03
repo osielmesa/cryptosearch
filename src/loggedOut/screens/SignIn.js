@@ -23,7 +23,6 @@ class SignIn extends Component {
   }
 
   navigateToWelcomeIfFirstTime = async () => {
-
     try {
       const notFirstTime = await AsyncStorage.getItem('NOT_FIRST_TIME')
       if (!notFirstTime) {
