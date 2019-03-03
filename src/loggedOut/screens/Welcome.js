@@ -25,7 +25,7 @@ class Welcome extends PureComponent {
         <View style={[styles.sectionView,{backgroundColor: theme.colors.primaryColor, width: SCREEN_WIDTH}]}>
           <View style={{alignItems: 'center'}}>
             <Text style={styles.text}>Welcome to Crypto.</Text>
-            <Text style={styles.sloganText}>Find it first, invest after!</Text>
+            <Text style={styles.sloganText}>Track it first, invest later!</Text>
           </View>
           <Text style={styles.text2}>Swipe right to continue.</Text>
         </View>
