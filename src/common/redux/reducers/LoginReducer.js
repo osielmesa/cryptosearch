@@ -52,7 +52,9 @@ const loginReducer = (state = initialState, action) => {
       return {
         ...state,
         user: null,
-        token: null
+        token: null,
+        accounts:[],
+        watchList:[]
       }
     case RETRIEVE_ACCOUNTS:
       return {

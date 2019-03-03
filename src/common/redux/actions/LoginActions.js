@@ -20,6 +20,7 @@ import {
 } from "./ActionTypes";
 
 import {hideLoading, showLoading} from "./UIActions";
+import {retrieveSymbols} from "./SearchActions";
 
 export const showLoadingLogin = () => ({
   type: SHOW_LOADING_LOGIN
@@ -148,7 +149,7 @@ export const getUserAccounts = ({userId,token}) => {
           console.log('ERROR: ',jsonResponse)
         }else {
           if(jsonResponse.length > 0){
-            dispatch({type:RETRIEVE_ACCOUNTS,payload:jsonResponse})
+            dispatch(retrieveAccounts(jsonResponse))
             dispatch(getWatchList({accountId:jsonResponse[0].id,token}))
           }
         }
@@ -175,7 +176,7 @@ export const getWatchList = ({accountId,token}) => {
         if(jsonResponse.code && jsonResponse.code !== 200){
           console.log('ERROR: ',jsonResponse)
         }else {
-          dispatch({type:RETRIEVE_WATCH_LIST,payload:jsonResponse})
+          dispatch(retrieveWatchList(jsonResponse))
         }
       }).catch(error => {
         console.log('ERROR: ',error)
@@ -232,10 +233,19 @@ export const getSecurityData = () => {
   }
 }
 
+export const retrieveAccounts = (accounts) => ({
+  type: RETRIEVE_ACCOUNTS,
+  payload: accounts
+})
+
+export const retrieveWatchList = (watchList) => ({
+  type: RETRIEVE_WATCH_LIST,
+  payload: watchList
+})
+
 export const logout = () => {
   return dispatch => {
-    dispatch({type:RETRIEVE_ACCOUNTS,payload:[]})
-    dispatch({type:RETRIEVE_WATCH_LIST,payload:[]})
+    dispatch(retrieveSymbols([]))
     dispatch(deleteSecurityData())
     dispatch({type:LOGOUT})
   }
