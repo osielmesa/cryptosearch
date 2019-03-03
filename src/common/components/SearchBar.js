@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
+import theme from '../theme'
 
 class SearchBar extends Component {
 
@@ -155,14 +156,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'white',
-    borderColor: '#b6b6b6',
-    borderStyle: 'solid',
-    borderWidth: 1,
+    shadowOffset: {width: 1, height: 0},
+    shadowOpacity: 0.2,
+    shadowRadius: 1,
+    elevation: 5,
   },
   searchBarInput: {
     flex: 1,
     fontWeight: 'normal',
-    color: '#212121',
+    color: theme.colors.textColor,
     backgroundColor: 'transparent',
   },
 });
