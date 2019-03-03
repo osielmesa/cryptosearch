@@ -13,10 +13,10 @@
             buildForArchiving = "YES"
             buildForAnalyzing = "YES">
             <BuildableReference
-               BuildableIdentifier = "primaryColor"
-               BlueprintIdentifier = "83CBBA2D1A601D0E00E9B192"
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2D2A28121D9B038B00D4039D"
                BuildableName = "libReact.a"
-               BlueprintName = "React"
+               BlueprintName = "React-tvOS"
                ReferencedContainer = "container:../node_modules/react-native/React/React.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -27,11 +27,11 @@
             buildForArchiving = "YES"
             buildForAnalyzing = "YES">
             <BuildableReference
-               BuildableIdentifier = "primaryColor"
-               BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "cryptosearch.app"
-               BlueprintName = "cryptosearch"
-               ReferencedContainer = "container:cryptosearch.xcodeproj">
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
+               BuildableName = "crypto-tvOS.app"
+               BlueprintName = "crypto-tvOS"
+               ReferencedContainer = "container:crypto.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -41,11 +41,11 @@
             buildForArchiving = "NO"
             buildForAnalyzing = "YES">
             <BuildableReference
-               BuildableIdentifier = "primaryColor"
-               BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "cryptosearchTests.xctest"
-               BlueprintName = "cryptosearchTests"
-               ReferencedContainer = "container:cryptosearch.xcodeproj">
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
+               BuildableName = "crypto-tvOSTests.xctest"
+               BlueprintName = "crypto-tvOSTests"
+               ReferencedContainer = "container:crypto.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -59,21 +59,21 @@
          <TestableReference
             skipped = "NO">
             <BuildableReference
-               BuildableIdentifier = "primaryColor"
-               BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "cryptosearchTests.xctest"
-               BlueprintName = "cryptosearchTests"
-               ReferencedContainer = "container:cryptosearch.xcodeproj">
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
+               BuildableName = "crypto-tvOSTests.xctest"
+               BlueprintName = "crypto-tvOSTests"
+               ReferencedContainer = "container:crypto.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
-            BuildableIdentifier = "primaryColor"
-            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "cryptosearch.app"
-            BlueprintName = "cryptosearch"
-            ReferencedContainer = "container:cryptosearch.xcodeproj">
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
+            BuildableName = "crypto-tvOS.app"
+            BlueprintName = "crypto-tvOS"
+            ReferencedContainer = "container:crypto.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -92,11 +92,11 @@
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
-            BuildableIdentifier = "primaryColor"
-            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "cryptosearch.app"
-            BlueprintName = "cryptosearch"
-            ReferencedContainer = "container:cryptosearch.xcodeproj">
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
+            BuildableName = "crypto-tvOS.app"
+            BlueprintName = "crypto-tvOS"
+            ReferencedContainer = "container:crypto.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -111,11 +111,11 @@
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
-            BuildableIdentifier = "primaryColor"
-            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "cryptosearch.app"
-            BlueprintName = "cryptosearch"
-            ReferencedContainer = "container:cryptosearch.xcodeproj">
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
+            BuildableName = "crypto-tvOS.app"
+            BlueprintName = "crypto-tvOS"
+            ReferencedContainer = "container:crypto.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

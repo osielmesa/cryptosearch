@@ -1,13 +1,12 @@
 {
-  "name": "cryptosearch",
+  "name": "crypto",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "clear-all": "watchman watch-del-all; rm -rf ./ios/build;  rm -rf ./ios/Pods; rm -rf $TMPDIR/react-*;rm -rf $TMPDIR/haste-*; rm -rf $TMPDIR/metro-*; rm -rf node_modules/; npm cache verify; npm install; npm start --reset-cache",
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios"
   },
   "dependencies": {
     "prop-types": "^15.7.2",
@@ -34,7 +33,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "24.1.0",
     "jest": "24.1.0",
-    "metro-react-native-babel-preset": "0.52.0",
+    "metro-react-native-babel-preset": "0.53.0",
     "react-test-renderer": "16.6.3"
   },
   "jest": {
