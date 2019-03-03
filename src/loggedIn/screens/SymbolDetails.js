@@ -10,7 +10,7 @@ import {NewsListItem} from "../../common/components";
 import {getApplicationNews, getSymbolChart} from "../../common/redux/actions/SymbolViewActions";
 
 class SymbolDetails extends Component {
-  limitAnimationDelayCount = 15
+  limitAnimationDelayCount = 5
   static navigationOptions = ({ navigation }) => {
     return {
       headerTitle:navigation.getParam('symbol', {displayName:'Details'}).displayName,
@@ -32,6 +32,7 @@ class SymbolDetails extends Component {
   showMorePressed = () => {
     const {token,offset} = this.props
     this.props.dispatch(getApplicationNews(token, offset))
+    this.limitAnimationDelayCount = 0
   }
 
   produceDataForChart = (chartData) => {

@@ -20,7 +20,8 @@ class Search extends Component {
   }
 
   componentDidMount(): void {
-    this.props.dispatch(getSymbolSearch({userId:this.props.user.id,token:this.props.token}))
+    const {user,token} = this.props
+    this.props.dispatch(getSymbolSearch({userId:user.id,token:token}))
   }
 
   onItemPressed = (item) => {
