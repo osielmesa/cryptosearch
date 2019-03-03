@@ -20,7 +20,6 @@ import {
 } from "./ActionTypes";
 
 import {hideLoading, showLoading} from "./UIActions";
-import {retrieveSymbols} from "./SearchActions";
 
 export const showLoadingLogin = () => ({
   type: SHOW_LOADING_LOGIN
@@ -245,7 +244,6 @@ export const retrieveWatchList = (watchList) => ({
 
 export const logout = () => {
   return dispatch => {
-    dispatch(retrieveSymbols([]))
     dispatch(deleteSecurityData())
     dispatch({type:LOGOUT})
   }
