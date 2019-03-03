@@ -69,7 +69,7 @@ class SignIn extends Component {
             <Text style={styles.errorFromApiText}>{errorMessage}</Text>
           }
           <ButtonSubmit
-            text={loadingLogin ? '' : 'SIGN IN'}
+            title={loadingLogin ? '' : 'SIGN IN'}
             disabled={invalid && !error}
             submitting={submitting}
             onPress={handleSubmit(this.login)}

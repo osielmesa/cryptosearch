@@ -1,12 +1,26 @@
 import React, {Component} from 'react'
 import { Button } from 'react-native-material-ui';
+import PropTypes from 'prop-types'
 //Local
 import theme from '../../theme'
 
 class ButtonSubmit extends Component {
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    disabled: PropTypes.bool,
+    submitting: PropTypes.bool,
+    onPress: PropTypes.func,
+    icon: PropTypes.element
+  }
+  static defaultProps = {
+    disabled:false,
+    submitting:false,
+    onPress:()=>{},
+    icon: null
+  }
   render() {
     const {
-      text,
+      title,
       disabled=false,
       submitting=false,
       onPress=()=>{},
@@ -25,7 +39,7 @@ class ButtonSubmit extends Component {
     return (
       <Button
         raised
-        text={text}
+        text={title}
         style={buttonCustomStyle}
         onPress={onPress}
         disabled={disabled || submitting}

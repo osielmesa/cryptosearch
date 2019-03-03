@@ -2,11 +2,17 @@ import React, {Component} from 'react'
 import { Modal, StyleSheet, View, Text } from 'react-native'
 import { connect } from 'react-redux'
 import { MaterialIndicator } from 'react-native-indicators';
+import PropTypes from "prop-types";
+
 //Local
 import theme from '../theme'
 
-
 class LoadingModal extends Component {
+
+  static propTypes = {
+    loading: PropTypes.bool,
+    loadingText: PropTypes.string,
+  }
 
   onRequestClose = () => {};
 

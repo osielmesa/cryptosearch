@@ -4,8 +4,24 @@ import { TextField as MTextField} from 'react-native-material-textfield';
 //Local
 import theme from '../../theme'
 import {isEmptyValue} from "../../utils";
+import PropTypes from "prop-types";
 
 class TextField extends PureComponent {
+
+  static propTypes = {
+    label: PropTypes.string.isRequired,
+    containerStyle: PropTypes.object,
+    isPasswordType: PropTypes.bool,
+    errorInvalidText: PropTypes.string,
+    errorEmptyText: PropTypes.string,
+  }
+  static defaultProps = {
+    containerStyle: null,
+    isPasswordType: false,
+    errorInvalidText: 'Invalid Field!',
+    errorEmptyText: 'Empty Field!',
+  }
+
   state={
     empty:true
   }

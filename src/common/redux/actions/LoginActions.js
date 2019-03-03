@@ -47,9 +47,9 @@ export const hideLoginErrorMessage = () => ({
   type: HIDE_LOGIN_ERROR_MESSAGE
 })
 
-export const updateUserInfo = (user,token) => ({
+export const updateUserInfo = (user,token,websocketToken) => ({
   type: UPDATE_USER_INFO,
-  payload: {user,token}
+  payload: {user,token,websocketToken}
 })
 
 export const login = ({ username, password }) => {
@@ -121,7 +121,7 @@ export const getUserInfo = (authorization, saveDataEnabled, showloginErrorEnable
           dispatch(hideLoading())
         }else {
           dispatch(getUserAccounts({userId:jsonResponse.id,token:bearer}))
-          dispatch(updateUserInfo(jsonResponse, bearer))
+          dispatch(updateUserInfo(jsonResponse, bearer,authorization.accessToken))
           dispatch(hideLoadingLogin())
           dispatch(hideLoginErrorMessage())
           dispatch(hideLoading())

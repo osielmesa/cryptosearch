@@ -1,6 +1,5 @@
 import React, {PureComponent} from 'react'
 import {View, ScrollView, Text, StyleSheet, Dimensions, AsyncStorage} from 'react-native'
-import {Button} from "react-native-material-ui";
 import theme from '../../common/theme'
 
 const SCREEN_WIDTH = Dimensions.get('window').width

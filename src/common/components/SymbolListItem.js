@@ -3,8 +3,23 @@ import {View, StyleSheet, Text,TouchableOpacity} from 'react-native'
 import { Icon } from 'react-native-material-ui';
 
 import theme from '../theme'
+import PropTypes from "prop-types";
 
 class SymbolListItem extends PureComponent {
+
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    secondaryText: PropTypes.string.isRequired,
+    iconName: PropTypes.string.isRequired,
+    iconColor: PropTypes.string.isRequired,
+    onPress: PropTypes.func,
+    onIconPress: PropTypes.func
+  }
+  static defaultProps = {
+    onPress: ()=>{},
+    onIconPress: ()=>{}
+  }
+
   render() {
     const {title, secondaryText, iconName, iconColor, onPress=()=>{}, onIconPress=()=>{}} = this.props
     return (

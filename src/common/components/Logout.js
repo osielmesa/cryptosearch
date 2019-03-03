@@ -3,6 +3,7 @@ import {TouchableOpacity, View} from 'react-native'
 import {connect} from 'react-redux'
 import {Icon} from "react-native-material-ui"
 
+//Local
 import {logout} from "../redux/actions/LoginActions";
 
 class Logout extends PureComponent {
