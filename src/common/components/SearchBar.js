@@ -9,23 +9,6 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
 
-const styles = StyleSheet.create({
-  searchBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    borderColor: '#b6b6b6',
-    borderStyle: 'solid',
-    borderWidth: 1,
-  },
-  searchBarInput: {
-    flex: 1,
-    fontWeight: 'normal',
-    color: '#212121',
-    backgroundColor: 'transparent',
-  },
-});
-
 class SearchBar extends Component {
 
   static defaultProps = {
@@ -129,40 +112,14 @@ class SearchBar extends Component {
           elevation: 1,
         }}
       >
-        <View
-          style={
-            [
-              styles.searchBar,
-              {
-                height: height,
-                paddingLeft: iconPadding
-              },
-              inputStyle
-            ]
-          }
-        >
+        <View style={[styles.searchBar, {height: height, paddingLeft: iconPadding}, inputStyle]}>
           {this.state.isOnFocus || this.props.alwaysShowBackButton
             ? <TouchableOpacity onPress={this._backPressed.bind(this)}>
-              { iconBackComponent ?
-                iconBackComponent
-                :
-                <Icon
-                  name={iconBackName}
-                  size={height * 0.5}
-                  color={iconColor}
-                />
+              { iconBackComponent ? iconBackComponent :
+                <Icon name={iconBackName} size={height * 0.5} color={iconColor}/>
               }
-            </TouchableOpacity>
-            :
-            ( iconSearchComponent ?
-                iconSearchComponent
-                :
-                <Icon
-                  name={iconSearchName}
-                  size={height * 0.5}
-                  color={iconColor}
-                />
-            )
+            </TouchableOpacity> : ( iconSearchComponent ? iconSearchComponent :
+              <Icon name={iconSearchName} size={height * 0.5} color={iconColor}/>)
           }
           <TextInput
             autoCorrect={autoCorrect === true}
@@ -177,35 +134,37 @@ class SearchBar extends Component {
             placeholder={placeholder}
             placeholderTextColor={placeholderColor}
             underlineColorAndroid="transparent"
-            style={
-              [styles.searchBarInput,
-                {
-                  paddingLeft: iconPadding,
-                  fontSize: height * 0.4,
-                },
-                textStyle
-              ]
-            }
+            style={[styles.searchBarInput, {paddingLeft: iconPadding, fontSize: height * 0.4,}, textStyle]}
             {...this.props.inputProps}
           />
-          {this.state.text !== '' ?
-            <TouchableOpacity onPress={this._onClose}>
-              { iconCloseComponent ?
-                iconCloseComponent
-                :
-                <Icon
-                  style={{paddingRight: iconPadding }}
-                  name={iconCloseName} size={iconSize}
-                  color={iconColor}
-                />
+          {this.state.text !== ''
+            ? <TouchableOpacity onPress={this._onClose}>
+              { iconCloseComponent ? iconCloseComponent :
+                <Icon style={{paddingRight: iconPadding }} name={iconCloseName} size={iconSize} color={iconColor}/>
               }
-            </TouchableOpacity>
-            : null
+            </TouchableOpacity> : null
           }
         </View>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  searchBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderColor: '#b6b6b6',
+    borderStyle: 'solid',
+    borderWidth: 1,
+  },
+  searchBarInput: {
+    flex: 1,
+    fontWeight: 'normal',
+    color: '#212121',
+    backgroundColor: 'transparent',
+  },
+});
 
 export {SearchBar}

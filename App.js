@@ -1,6 +1,11 @@
 import React from 'react';
-import { StyleSheet,View } from 'react-native';
+import { StyleSheet,View, YellowBox} from 'react-native';
 import { Provider } from 'react-redux';
+
+YellowBox.ignoreWarnings([
+  'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?',
+  'Remote debugger'
+])
 
 //Local
 import store from './src/common/redux/Store'

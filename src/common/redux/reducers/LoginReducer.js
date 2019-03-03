@@ -14,6 +14,7 @@ const initialState = {
   showLoginError:false,
   errorMessage:'',
   user:null,
+  websocketToken:null,
   token:null,
   accounts:[],
   watchList:[]
@@ -46,7 +47,8 @@ const loginReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload.user,
-        token: action.payload.token
+        token: action.payload.token,
+        websocketToken: action.payload.websocketToken
       }
     case LOGOUT:
       return {

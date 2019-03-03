@@ -46,7 +46,8 @@ export const setSymbolWatchList = ({accountId,token, symbolId, following, symbol
     fetch(url,config).then(res => {
       res.json().then(jsonResponse => {
         if(jsonResponse.code && jsonResponse.code !== 200){
-          console.log('ERROR: ',jsonResponse)
+          showErrorToastFromSetSymbolToWatchList(symbolName,following)
+          console.log('Error: ', jsonResponse)
         }else {
           dispatch(getWatchList({accountId,token}))
           dispatch(getSymbolSearch({userId,token}))
@@ -57,12 +58,22 @@ export const setSymbolWatchList = ({accountId,token, symbolId, following, symbol
           showToast(message)
         }
       }).catch(error => {
+        showErrorToastFromSetSymbolToWatchList(symbolName,following)
         console.log('ERROR: ',error)
       })
     }).catch(error => {
+      showErrorToastFromSetSymbolToWatchList(symbolName,following)
       console.log('ERROR: ',error)
     })
   }
+}
+
+const showErrorToastFromSetSymbolToWatchList = (symbolName, following) =>{
+  let message = symbolName + ' cannot be added to following list.'
+  if(!following){
+    message = symbolName + ' cannot be removed from following list.'
+  }
+  showErrorToast(message)
 }
 
 export const retrieveSymbols = (symbols) => ({

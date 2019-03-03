@@ -1,8 +1,19 @@
 import React, {PureComponent} from 'react'
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import theme from "../theme";
+import PropTypes from "prop-types";
 
 class NewsListItem extends PureComponent {
+
+  static propTypes = {
+    description: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    onPress: PropTypes.func
+  }
+  static defaultProps = {
+    onPress: ()=>{},
+  }
+
   render() {
     const {description, date, onPress=()=>{}} = this.props
     return (
