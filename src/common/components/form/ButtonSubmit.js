@@ -10,13 +10,15 @@ class ButtonSubmit extends Component {
     disabled: PropTypes.bool,
     submitting: PropTypes.bool,
     onPress: PropTypes.func,
-    icon: PropTypes.element
+    icon: PropTypes.element,
+    width: PropTypes.number
   }
   static defaultProps = {
     disabled:false,
     submitting:false,
     onPress:()=>{},
-    icon: null
+    icon: null,
+    width: 270
   }
   render() {
     const {
@@ -24,12 +26,13 @@ class ButtonSubmit extends Component {
       disabled=false,
       submitting=false,
       onPress=()=>{},
-      icon = null
+      icon = null,
+      width = 270
     } = this.props
 
     const buttonCustomStyle={
       container:{
-        width:270,
+        width:width,
         height: 60,
         backgroundColor:disabled || submitting ? theme.colors.disabledColor :theme.colors.primaryColor,
       },
