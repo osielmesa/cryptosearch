@@ -10,9 +10,7 @@ import {
   getWatchlistDataEndpoint
 } from '../../api'
 import {
-  HIDE_LOADING,
   HIDE_LOADING_LOGIN,
-  SHOW_LOADING,
   SHOW_LOADING_LOGIN,
   SHOW_LOGIN_ERROR_MESSAGE,
   HIDE_LOGIN_ERROR_MESSAGE,
@@ -21,14 +19,7 @@ import {
   RETRIEVE_WATCH_LIST
 } from "./ActionTypes";
 
-export const hideLoading = () => ({
-  type: HIDE_LOADING,
-})
-
-export const showLoading = (loadingText) => ({
-  type: SHOW_LOADING,
-  payload:loadingText
-})
+import {hideLoading, showLoading} from "./UIActions";
 
 export const showLoadingLogin = () => ({
   type: SHOW_LOADING_LOGIN
@@ -47,9 +38,9 @@ export const hideLoginErrorMessage = () => ({
   type: HIDE_LOGIN_ERROR_MESSAGE
 })
 
-export const updateUserInfo = (user,token,websocketToken) => ({
+export const updateUserInfo = (user,token) => ({
   type: UPDATE_USER_INFO,
-  payload: {user,token,websocketToken}
+  payload: {user,token}
 })
 
 export const login = ({ username, password }) => {

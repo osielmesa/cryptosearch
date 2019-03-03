@@ -1,4 +1,4 @@
-import {HIDE_LOADING,SHOW_LOADING} from "../actions/ActionTypes";
+import {HIDE_LOADING,SHOW_LOADING, ORIENTATION_CHANGED} from "../actions/ActionTypes";
 
 const initialState = {
   loading: false,
@@ -19,6 +19,11 @@ const initialState = {
         ...state,
         loading: true,
         loadingText:action.payload
+      };
+    case ORIENTATION_CHANGED:
+      return {
+        ...state,
+        orientation: action.payload
       };
 
     default:

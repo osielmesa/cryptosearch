@@ -1,5 +1,4 @@
 import React, {PureComponent} from 'react'
-import {StyleSheet} from 'react-native'
 import { TextField as MTextField} from 'react-native-material-textfield';
 //Local
 import theme from '../../theme'
@@ -14,12 +13,15 @@ class TextField extends PureComponent {
     isPasswordType: PropTypes.bool,
     errorInvalidText: PropTypes.string,
     errorEmptyText: PropTypes.string,
+    orientation: PropTypes.string,
+    width: PropTypes.number
   }
   static defaultProps = {
     containerStyle: null,
     isPasswordType: false,
     errorInvalidText: 'Invalid Field!',
     errorEmptyText: 'Empty Field!',
+    width: 270
   }
 
   state={
@@ -39,6 +41,7 @@ class TextField extends PureComponent {
       isPasswordType = false,
       errorInvalidText = 'Invalid Field!',
       errorEmptyText = 'Empty Field!',
+      width = 270,
       input:{
         onBlur,
         onChange
@@ -52,7 +55,7 @@ class TextField extends PureComponent {
     return (
       <MTextField
         label={label}
-        containerStyle={containerStyle ? containerStyle : styles.containerStyle}
+        containerStyle={containerStyle ? containerStyle : {width:width, height: 60}}
         secureTextEntry={isPasswordType}
         tintColor={theme.colors.primaryColor}
         onBlur={val=> onBlur(val)}
@@ -64,12 +67,5 @@ class TextField extends PureComponent {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  containerStyle:{
-    width:270,
-    height: 60
-  }
-})
 
 export {TextField}

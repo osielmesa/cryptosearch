@@ -34,7 +34,7 @@ class SignIn extends Component {
   }
 
   render() {
-    const {invalid, error,submitting,handleSubmit, loadingLogin, showLoginError, errorMessage} = this.props
+    const {invalid, error,submitting,handleSubmit, loadingLogin, showLoginError, errorMessage, orientation} = this.props
     return (
       <View style={styles.container}>
         <View style={styles.contentView}>
@@ -49,6 +49,7 @@ class SignIn extends Component {
             errorInvalidText={'Email is invalid'}
             errorEmptyText={'Email is required'}
             keyboardType={'email-address'}
+            width={orientation === 'portrait' ? 270 : 450}
           />
           <View style={{marginTop: 30}}>
             <Field
@@ -58,6 +59,7 @@ class SignIn extends Component {
               validate={isPasswordValid}
               isPasswordType={true}
               errorEmptyText={'Password is required'}
+              width={orientation === 'portrait' ? 270 : 450}
             />
           </View>
 
@@ -71,6 +73,7 @@ class SignIn extends Component {
             title={loadingLogin ? '' : 'SIGN IN'}
             disabled={invalid && !error}
             submitting={submitting}
+            width={orientation === 'portrait' ? 270 : 450}
             onPress={handleSubmit(this.login)}
             icon={loadingLogin ? <MaterialIndicator color={theme.colors.disabledColor} size={20} /> : null}
           />
@@ -115,7 +118,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   loadingLogin: state.login.loadingLogin,
   showLoginError: state.login.showLoginError,
-  errorMessage: state.login.errorMessage
+  errorMessage: state.login.errorMessage,
+  orientation: state.ui.orientation
 });
 
 export default connect(mapStateToProps)(reduxForm({form:'SignIn'})(SignIn))
