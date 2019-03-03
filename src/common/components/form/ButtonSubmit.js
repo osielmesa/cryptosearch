@@ -31,7 +31,7 @@ class ButtonSubmit extends Component {
       container:{
         width:270,
         height: 60,
-        backgroundColor:disabled || submitting ? theme.colors.disabledColor :theme.colors.primary,
+        backgroundColor:disabled || submitting ? theme.colors.disabledColor :theme.colors.primaryColor,
       },
       text:{color:'white'}
     }

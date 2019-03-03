@@ -1,7 +1,7 @@
 import theme from "../theme";
 
 const headerStyle = {
-  backgroundColor: theme.colors.primary,
+  backgroundColor: theme.colors.primaryColor,
   shadowColor: '#000',
   shadowOffset: {width: 0, height: 2},
   shadowOpacity: 0.7,

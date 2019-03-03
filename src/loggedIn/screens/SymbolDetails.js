@@ -89,8 +89,9 @@ class SymbolDetails extends Component {
           }
 
           <Text style={styles.aboutTitle}>ABOUT</Text>
-          {symbol.baseInstrument.description &&
-          <Text style={styles.aboutText}>{symbol.baseInstrument.description}</Text>
+          {(symbol.baseInstrument.description && symbol.baseInstrument.description.trim() !== "")
+            ? <Text style={styles.aboutText}>{symbol.baseInstrument.description}</Text>
+            : <Text style={styles.aboutText}>There is no description available for this symbol.</Text>
           }
 
           {news && news.length > 0 &&<Text style={styles.newsTitle}>NEWS</Text>}
@@ -118,9 +119,9 @@ const chartConfig = {
     strokeColor: theme.colors.strokeColorChart
   },
   area: {
-    gradientFrom: theme.colors.gradientChartTop,
+    gradientFrom: theme.colors.gradientChartTopColor,
     gradientFromOpacity: 1,
-    gradientTo: theme.colors.gradientChartBottom,
+    gradientTo: theme.colors.gradientChartBottomColor,
     gradientToOpacity: 1
   },
   yAxis: {
@@ -150,7 +151,7 @@ const styles = StyleSheet.create({
     fontSize:16
   },
   aboutTitle:{
-    color:theme.colors.primary,
+    color:theme.colors.primaryColor,
     fontWeight: 'bold',
     marginTop:15
   },
@@ -160,13 +161,13 @@ const styles = StyleSheet.create({
     marginTop:15
   },
   newsTitle:{
-    color:theme.colors.primary,
+    color:theme.colors.primaryColor,
     fontWeight: 'bold',
     marginTop:20
   },
   showMoreText:{
     alignSelf:'center',
-    color:theme.colors.primary,
+    color:theme.colors.primaryColor,
     fontWeight: 'bold',
     marginTop:40
   },

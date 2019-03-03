@@ -20,7 +20,7 @@ class Welcome extends PureComponent {
         pagingEnabled
         style={{flex:1}}
       >
-        <View style={[styles.sectionView,{backgroundColor: theme.colors.primary}]}>
+        <View style={[styles.sectionView,{backgroundColor: theme.colors.primaryColor}]}>
           <Text style={styles.text}>Welcome to Crypto.</Text>
           <Text style={styles.sloganText}>Find it first, invest after!</Text>
           <Text style={styles.text2}>Swipe right to continue.</Text>
@@ -29,7 +29,7 @@ class Welcome extends PureComponent {
           <Text style={styles.text}>Sig in using your credentials.</Text>
           <Text style={styles.text2}>Swipe right to continue or left to previous tip.</Text>
         </View>
-        <View style={[styles.sectionView,{backgroundColor: theme.colors.primary}]}>
+        <View style={[styles.sectionView,{backgroundColor: theme.colors.primaryColor}]}>
           <Text style={styles.text}>Touch a crypto to watch details, price history and news.</Text>
           <Text style={styles.text2}>Swipe right to continue or left to previous tip.</Text>
         </View>
@@ -37,7 +37,7 @@ class Welcome extends PureComponent {
           <Text style={styles.text}>Use favourite icon to follow crypto.</Text>
           <Text style={styles.text2}>Swipe right to continue or left to previous tip.</Text>
         </View>
-        <View style={[styles.sectionView,{backgroundColor: theme.colors.primary}]}>
+        <View style={[styles.sectionView,{backgroundColor: theme.colors.primaryColor}]}>
           <Text style={styles.text}>You are ready!</Text>
           <Text style={styles.text2} onPress={() => this.finishWelcome()}>Touch here to finish.</Text>
         </View>

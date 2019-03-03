@@ -13,7 +13,7 @@
             buildForArchiving = "YES"
             buildForAnalyzing = "YES">
             <BuildableReference
-               BuildableIdentifier = "primary"
+               BuildableIdentifier = "primaryColor"
                BlueprintIdentifier = "2D2A28121D9B038B00D4039D"
                BuildableName = "libReact.a"
                BlueprintName = "React-tvOS"
@@ -27,7 +27,7 @@
             buildForArchiving = "YES"
             buildForAnalyzing = "YES">
             <BuildableReference
-               BuildableIdentifier = "primary"
+               BuildableIdentifier = "primaryColor"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
                BuildableName = "cryptosearch-tvOS.app"
                BlueprintName = "cryptosearch-tvOS"
@@ -41,7 +41,7 @@
             buildForArchiving = "NO"
             buildForAnalyzing = "YES">
             <BuildableReference
-               BuildableIdentifier = "primary"
+               BuildableIdentifier = "primaryColor"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
                BuildableName = "cryptosearch-tvOSTests.xctest"
                BlueprintName = "cryptosearch-tvOSTests"
@@ -59,7 +59,7 @@
          <TestableReference
             skipped = "NO">
             <BuildableReference
-               BuildableIdentifier = "primary"
+               BuildableIdentifier = "primaryColor"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
                BuildableName = "cryptosearch-tvOSTests.xctest"
                BlueprintName = "cryptosearch-tvOSTests"
@@ -69,7 +69,7 @@
       </Testables>
       <MacroExpansion>
          <BuildableReference
-            BuildableIdentifier = "primary"
+            BuildableIdentifier = "primaryColor"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
             BuildableName = "cryptosearch-tvOS.app"
             BlueprintName = "cryptosearch-tvOS"
@@ -92,7 +92,7 @@
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
-            BuildableIdentifier = "primary"
+            BuildableIdentifier = "primaryColor"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
             BuildableName = "cryptosearch-tvOS.app"
             BlueprintName = "cryptosearch-tvOS"
@@ -111,7 +111,7 @@
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
-            BuildableIdentifier = "primary"
+            BuildableIdentifier = "primaryColor"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
             BuildableName = "cryptosearch-tvOS.app"
             BlueprintName = "cryptosearch-tvOS"
