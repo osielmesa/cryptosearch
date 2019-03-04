@@ -12,7 +12,9 @@ const theme = {
     strokeColorChart:'#1B5E20',
     gradientChartTopColor:'#3F9488',
     gradientChartBottomColor:'#43A047',
-    statusBarColor:'#31766C'
+    statusBarColor:'#31766C',
+    secondWelcomeScreen:'#0091EA',
+    forthWelcomeScreen:'#00838F'
   }
 }
 export default theme

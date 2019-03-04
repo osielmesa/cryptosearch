@@ -24,12 +24,12 @@ class Welcome extends PureComponent {
       >
         <View style={[styles.sectionView,{backgroundColor: theme.colors.primaryColor, width: SCREEN_WIDTH}]}>
           <View style={{alignItems: 'center'}}>
-            <Text style={styles.text}>Welcome to Crypto.</Text>
+            <Text style={[styles.text,{fontSize:30}]}>Welcome to Crypto.</Text>
             <Text style={styles.sloganText}>Track it first, invest later!</Text>
           </View>
           <Text style={styles.text2}>Swipe right to continue.</Text>
         </View>
-        <View style={[styles.sectionView,{backgroundColor: theme.colors.messageColor, width: SCREEN_WIDTH}]}>
+        <View style={[styles.sectionView,{backgroundColor: theme.colors.secondWelcomeScreen, width: SCREEN_WIDTH}]}>
           <Text style={styles.text}>Sig in using your credentials.</Text>
           <Text style={styles.text2}>Swipe right to continue or left to previous tip.</Text>
         </View>
@@ -37,7 +37,7 @@ class Welcome extends PureComponent {
           <Text style={styles.text}>Touch a crypto to watch details, price history and news.</Text>
           <Text style={styles.text2}>Swipe right to continue or left to previous tip.</Text>
         </View>
-        <View style={[styles.sectionView,{backgroundColor: theme.colors.messageColor, width: SCREEN_WIDTH}]}>
+        <View style={[styles.sectionView,{backgroundColor: theme.colors.forthWelcomeScreen, width: SCREEN_WIDTH}]}>
           <Text style={styles.text}>Use favourite icon to follow crypto.</Text>
           <Text style={styles.text2}>Swipe right to continue or left to previous tip.</Text>
         </View>
@@ -52,7 +52,7 @@ class Welcome extends PureComponent {
 
 const styles = StyleSheet.create({
   text:{
-    fontSize:30,
+    fontSize:20,
     color:'white',
     marginLeft: 15,
     marginRight: 15
