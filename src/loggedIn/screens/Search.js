@@ -15,7 +15,8 @@ class Search extends Component {
     super()
     this.limitAnimationDelayCount = 15
     this.state = {
-      filteredSymbolsArray:[]
+      filteredSymbolsArray:[],
+      textFilter:''
     }
   }
 
@@ -54,11 +55,13 @@ class Search extends Component {
         return itemData.indexOf(textData) > -1
       });
       this.setState({
-        filteredSymbolsArray: newData
+        filteredSymbolsArray: newData,
+        textFilter:text
       })
     }else{
       this.setState({
-        filteredSymbolsArray: []
+        filteredSymbolsArray: [],
+        textFilter:''
       })
     }
   }
@@ -122,7 +125,7 @@ class Search extends Component {
         {this.props.symbols.length > 0 &&
         <FlatList
           keyExtractor={(item, index) => index+''}
-          data={this.state.filteredSymbolsArray.length> 0 ? this.state.filteredSymbolsArray : this.props.symbols}
+          data={this.state.filteredSymbolsArray.length> 0 ? this.state.filteredSymbolsArray : this.state.textFilter === '' ? this.props.symbols : []}
           renderItem={item => this._renderItem(item)}
           style={styles.symbolList}
         />}
